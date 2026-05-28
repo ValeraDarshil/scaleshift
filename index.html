@@ -1693,14 +1693,26 @@
               z-index: 1;
             "
           >
-            <input class="form-input" type="text" placeholder="Your Name" />
-            <input class="form-input" type="email" placeholder="Your Email" />
             <input
+              id="form-name"
+              class="form-input"
+              type="text"
+              placeholder="Your Name"
+            />
+            <input
+              id="form-email"
+              class="form-input"
+              type="email"
+              placeholder="Your Email"
+            />
+            <input
+              id="form-business"
               class="form-input"
               type="text"
               placeholder="Your Business / Brand"
             />
             <textarea
+              id="form-message"
               class="form-input"
               placeholder="Tell us about your goals..."
               rows="3"
@@ -1708,6 +1720,7 @@
             ></textarea>
           </div>
           <button
+            onclick="submitToWhatsApp()"
             class="btn-primary"
             style="
               width: 100%;
@@ -1947,6 +1960,19 @@
         nav.style.background =
           window.scrollY > 50 ? "rgba(2,2,8,0.95)" : "rgba(2,2,8,0.7)";
       });
+
+      function submitToWhatsApp() {
+        const name = document.getElementById("form-name").value.trim();
+        const email = document.getElementById("form-email").value.trim();
+        const business = document.getElementById("form-business").value.trim();
+        const message = document.getElementById("form-message").value.trim();
+        if (!name || !email || !business) {
+          alert("Please fill in your Name, Email and Business name!");
+          return;
+        }
+        const text = `Hello Scale Shift! 👋%0A%0A*New Lead from Website*%0A%0A*Name:* ${encodeURIComponent(name)}%0A*Email:* ${encodeURIComponent(email)}%0A*Business:* ${encodeURIComponent(business)}%0A*Goals:* ${encodeURIComponent(message || "Not specified")}%0A%0AI want to book a free strategy call!`;
+        window.open(`https://wa.me/919023804404?text=${text}`, "_blank");
+      }
     </script>
   </body>
 </html>
